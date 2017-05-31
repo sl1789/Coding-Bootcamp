@@ -69,7 +69,7 @@ public class UserDAO {
 		DB db = new DB();
 		Connection con = null;
 		PreparedStatement st = null;
-		String sqlq = "Insert into bioproject.user('name','surname','username','email','password') values(?,?,?,?,?);"; //leipei to onoma tis basis
+		String sqlq = "Insert into bioproject.user(name,surname,username,email,password) values(?,?,?,?,?);"; //leipei to onoma tis basis
 		
 		try{
 			
