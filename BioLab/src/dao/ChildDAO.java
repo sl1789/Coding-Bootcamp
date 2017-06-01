@@ -12,7 +12,7 @@ import model.Child;
 
 public class ChildDAO extends PatientDAO{
 	
-	ChildDAO(){
+	public ChildDAO(){
 		super();
 	}
 	
@@ -29,7 +29,7 @@ public class ChildDAO extends PatientDAO{
 			db.open();
 			con=db.getConnection();
 			st=con.prepareStatement(sqlq);
-			st.setDate(1, child.getDateOfBirth());
+			st.setString(1, child.getDateOfBirth());
 			st.executeUpdate();
 			st.close();
 			db.close();
@@ -61,7 +61,7 @@ public class ChildDAO extends PatientDAO{
 			rs = st.executeQuery(sqlquery);
 			
 			while(rs.next()){
-				results.add(new Child(rs.getString("patientId"),rs.getString("name"),rs.getString("surname"),rs.getString("HLA_A"),rs.getString("HLA_B"),rs.getString("HLA_C"),rs.getString("HLA_DPB1"),rs.getString("HLA_DQA1"),rs.getString("HLA_DQB1"),rs.getString("HLA_DRB1"),rs.getDate("dateOfBirth")));
+				results.add(new Child(rs.getString("patientId"),rs.getString("name"),rs.getString("surname"),rs.getString("HLA_A"),rs.getString("HLA_B"),rs.getString("HLA_C"),rs.getString("HLA_DPB1"),rs.getString("HLA_DQA1"),rs.getString("HLA_DQB1"),rs.getString("HLA_DRB1"),rs.getString("dateOfBirth"),rs.getString("mother_id")));
 			}
 			
 			
