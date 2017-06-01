@@ -3,6 +3,7 @@ package dao;
 import java.sql.*;
 import java.util.ArrayList;
 import connection.DB;
+//import model.Doctor;
 import model.User;
 
 
@@ -69,7 +70,7 @@ public class UserDAO {
 		DB db = new DB();
 		Connection con = null;
 		PreparedStatement st = null;
-		String sqlq = "Insert into bioproject.user(name,surname,username,email,password) values(?,?,?,?,?);"; //leipei to onoma tis basis
+		String sqlq = "Insert into bioproject.user('name','surname','username','email','password') values(?,?,?,?,?);"; //leipei to onoma tis basis
 		
 		try{
 			
@@ -96,10 +97,10 @@ public class UserDAO {
 		}
 	}
 	
-	public boolean confirmUser(String name, String surname, String username, String email)throws Exception{
+	public User confirmUser(String name, String surname, String username, String email)throws Exception{
 		Connection con = null;
 		DB db =new DB();
-		boolean flag =false;
+		User user = null;
 		PreparedStatement st = null;
 		String sqlq = "SELECT * FROM user WHERE(name=? AND surname = ?) OR username = ? OR email = ?;";
 		ResultSet rs = null;
@@ -115,12 +116,13 @@ public class UserDAO {
 			rs=st.executeQuery();
 			
 			if(rs.next()){
-				flag=true;
+				user=new User(rs.getString("name"),rs.getString("surname"),rs.getString("username"),rs.getString("email"),rs.getString("password"));
+				
 			}
 			rs.close();
 			st.close();
 			
-			return flag;
+			return user;
 		}catch(Exception e){
 			throw new Exception("An error occured while getting users from database: " + e.getMessage());
 		}finally{
@@ -132,39 +134,87 @@ public class UserDAO {
 		}
 	}
 	
-	public boolean confirmUser(String username, String password)throws Exception{
+	public User confirmUser(String username, String password)throws Exception{
 		Connection con = null;
 		DB db =new DB();
-		boolean flag =false;
+		//boolean flag =false;
 		PreparedStatement st = null;
-		String sqlq = "SELECT * FROM user WHERE (username = ? or email= ?) AND (password = ?);";
+		String sqlq = "SELECT * FROM user WHERE (username = ?) AND (password = ?);";
 		ResultSet rs = null;
+		User user = null;
 		
 		try{
 			db.open();
 			con=db.getConnection();
 			st=con.prepareStatement(sqlq);
 			st.setString(1, username);
-			st.setString(2, username);
-			st.setString(3, password);
+			//st.setString(2, username);
+			st.setString(2, password);
 			rs=st.executeQuery();
 			
 			if(rs.next()){
-				flag=true;
+					user=new User(rs.getString("name"),rs.getString("surname"),rs.getString("username"),rs.getString("email"),rs.getString("password"));
+					return user;
 			}
+			
 			rs.close();
 			st.close();
 			
-			return flag;
+			return user;
 		}catch(Exception e){
 			throw new Exception("An error occured while getting users from database: " + e.getMessage());
-		}finally{
+			}finally{
 			try {
 				db.close();
 			} catch (Exception e) {
 				
 			} 
 		}
+	}
+	
+	
+	public ArrayList<User> findUserByKeyword(String keyword) throws Exception{
+		Connection con = null;
+		DB db = new DB();
+		ArrayList<User> results = new ArrayList<User>();
+		String sqlquery = "SELECT * FROM bioproject.doctor WHERE surname LIKE ? OR name LIKE ? OR username LIKE ?;";
+		
+		try {
+			
+			db.open(); //open connection
+			con = db.getConnection(); //get Connection Object
+			PreparedStatement stmt1 = con.prepareStatement(sqlquery);
+			stmt1.setString(1, "%"+keyword+"%");
+			stmt1.setString(2, "%"+keyword+"%");
+			stmt1.setString(3, "%"+keyword+"%");
+			
+			ResultSet rs =stmt1.executeQuery();
+			
+			while(rs.next()){
+				results.add(new User(rs.getString("name"),rs.getString("surname"),rs.getString("username"),rs.getString("email"),rs.getString("password")));
+			}
+			
+			rs.close();
+			stmt1.close();
+			db.close();
+
+			return results;
+
+			
+
+		} catch (Exception e) {
+
+			throw new Exception("An error occured while searching for user in the database: " + e.getMessage());
+			
+		} finally {
+			
+			try {
+				db.close();
+			} catch (Exception e) {
+				
+			}
+		}
+
 	}
 	
 	

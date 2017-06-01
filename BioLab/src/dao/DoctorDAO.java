@@ -9,7 +9,7 @@ import model.Doctor;
 public class DoctorDAO extends UserDAO{
 
 	public DoctorDAO() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
 	
 	/**
@@ -72,7 +72,7 @@ public class DoctorDAO extends UserDAO{
 		DB db = new DB();
 		Connection con = null;
 		PreparedStatement st = null;
-		String sqlq = "Insert into bootcamp.doctor(doc_credential,username) values(?,?);"; //leipei to onoma tis basis
+		String sqlq = "Insert into bioproject.doctor(doc_credential,username) values(?,?);"; //leipei to onoma tis basis
 		
 		try{
 			
@@ -94,5 +94,40 @@ public class DoctorDAO extends UserDAO{
 				
 			} 
 		}
+	}
+	
+	public int ifDoctor(String username) throws Exception{
+		DB db = new DB();
+		Connection con = null;
+		ResultSet rs =null;
+		PreparedStatement st = null;
+		String sqlquery = "SELECT * FROM bioproject.doctor WHERE (username = ?);";
+		int cred = 0;
+		
+		try{
+			db.open();
+			con=db.getConnection();
+			st=con.prepareStatement(sqlquery);
+			st.setString(1, username);
+			rs=st.executeQuery();
+			
+			if(rs.next()){
+				cred = rs.getInt("doc_credential");
+				return cred;
+			}
+			rs.close();
+			st.close();
+			return cred;
+			
+		}catch(Exception e){
+			throw new Exception("An error occured while getting users from database: " + e.getMessage());
+			}finally{
+			try {
+				db.close();
+			} catch (Exception e) {
+				
+			} 
+		}
+		
 	}
 }
