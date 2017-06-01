@@ -10,7 +10,14 @@ public class Transplant {
 	private String HLA_DQA1;
 	private String HLA_DQB1;
 	private String HLA_DRB1;
+	private int hospital_id;
 	
+	public int getHospital_id() {
+		return hospital_id;
+	}
+	public void setHospital_id(int hospital_id) {
+		this.hospital_id = hospital_id;
+	}
 	public String getType() {
 		return type;
 	}
@@ -61,15 +68,16 @@ public class Transplant {
 	}
 	
 	public Transplant(String type, String hLA_A, String hLA_B, String hLA_C, String hLA_DPB1, String hLA_DQA1,
-			String hLA_DQB1, String hLA_DRB1) {
+			String hLA_DQB1, String hLA_DRB1,int hospital_id) {
 		this.type = type;
-		HLA_A = hLA_A;
-		HLA_B = hLA_B;
-		HLA_C = hLA_C;
-		HLA_DPB1 = hLA_DPB1;
-		HLA_DQA1 = hLA_DQA1;
-		HLA_DQB1 = hLA_DQB1;
-		HLA_DRB1 = hLA_DRB1;
+		this.HLA_A = hLA_A;
+		this.HLA_B = hLA_B;
+		this.HLA_C = hLA_C;
+		this.HLA_DPB1 = hLA_DPB1;
+		this.HLA_DQA1 = hLA_DQA1;
+		this.HLA_DQB1 = hLA_DQB1;
+		this.HLA_DRB1 = hLA_DRB1;
+		this.hospital_id= hospital_id;
 	}
 	@Override
 	public String toString() {

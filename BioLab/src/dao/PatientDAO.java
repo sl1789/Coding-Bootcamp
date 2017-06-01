@@ -131,23 +131,23 @@ public class PatientDAO {
 		}
 	}
 	
-	public ArrayList<Patient> findPatientByGenes(String HLA_A,String HLA_B,String HLA_C,String HLA_DPB1,String HLA_DQA1,String HLA_DQB1,String HLA_DRB1) throws Exception{
+	public ArrayList<Patient> findPatientByGenes(String gene) throws Exception{
 		Connection con = null;
 		ArrayList<Patient> results = new ArrayList<Patient>();
 		DB db = new DB();
-		String sqlquery = "SELECT * FROM bioproject.patient WHERE HLA_A= ? AND HLA_B= ? AND HLA_C= ? AND HLA_DPB1=? AND HLA_DQA1=? AND HLA_DQB1=? AND HLA_DRB1=? ;";
+		String sqlquery = "SELECT * FROM bioproject.patient WHERE HLA_A= ? OR HLA_B= ? OR HLA_C= ? OR HLA_DPB1=? OR HLA_DQA1=? OR HLA_DQB1=? OR HLA_DRB1=? ;";
 		
 		try{
 			db.open(); //open connection
 			con = db.getConnection(); //get Connection Object
 			PreparedStatement stmt1 = con.prepareStatement(sqlquery);
-			stmt1.setString(1, HLA_A);
-			stmt1.setString(2, HLA_B);
-			stmt1.setString(3, HLA_C);
-			stmt1.setString(4, HLA_DPB1);
-			stmt1.setString(5, HLA_DQA1);
-			stmt1.setString(6, HLA_DQB1);
-			stmt1.setString(7, HLA_DRB1);
+			stmt1.setString(1, gene);
+			stmt1.setString(2, gene);
+			stmt1.setString(3, gene);
+			stmt1.setString(4, gene);
+			stmt1.setString(5, gene);
+			stmt1.setString(6, gene);
+			stmt1.setString(7, gene);
 			
 			ResultSet rs =stmt1.executeQuery();
 			

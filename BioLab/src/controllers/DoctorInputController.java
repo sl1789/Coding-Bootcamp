@@ -14,10 +14,12 @@ import javax.servlet.http.HttpSession;
 import dao.ChildDAO;
 import dao.ExaminationDAO;
 import dao.MotherDAO;
+import dao.TransplantDAO;
 import model.Child;
 import model.Doctor;
 import model.Examination;
 import model.Mother;
+import model.Transplant;
 
 /**
  * Servlet implementation class DoctorInputController
@@ -64,11 +66,15 @@ request.setCharacterEncoding("UTF-8");
 		String dateOfBirth = request.getParameter("dateOfBirth");
 		String mother_id = request.getParameter("mother_id");
 		
+		String transType = request.getParameter("type");
+		String hos_id = request.getParameter("hospital_id");
+		
 		RequestDispatcher rd = request.getRequestDispatcher("/saveresult.jsp");//SOS change directory
 		
 		ChildDAO cdao = new ChildDAO();
 		MotherDAO mdao = new MotherDAO();
 		ExaminationDAO edao = new ExaminationDAO();
+		TransplantDAO tdao = new TransplantDAO();
 		HttpSession session = request.getSession(true);
 		
 		try{
@@ -87,6 +93,9 @@ request.setCharacterEncoding("UTF-8");
 			Doctor doc = (Doctor)session.getAttribute("user");
 			Examination exam = new Examination(doc.getUsername(),date,type,notes,patient_id);
 			edao.saveExamination(exam);
+			int hospital_id = Integer.parseInt(hos_id);
+			Transplant tran = new Transplant(type,HLA_A,HLA_B,HLA_C,HLA_DPB1,HLA_DQA1,HLA_DQB1,HLA_DRB1,hospital_id);
+			tdao.saveTransplant(tran);
 			return;
 		}catch (Exception e) {
 			

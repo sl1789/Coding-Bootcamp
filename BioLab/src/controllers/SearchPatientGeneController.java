@@ -37,20 +37,15 @@ public class SearchPatientGeneController extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		String HLA_A = request.getParameter("HLA_A");
-		String HLA_B = request.getParameter("HLA_B");
-		String HLA_C = request.getParameter("HLA_C");
-		String HLA_DPB1 = request.getParameter("HLA_DPB1");
-		String HLA_DQA1 = request.getParameter("HLA_DQA1");
-		String HLA_DQB1 = request.getParameter("HLA_DQB1");
-		String HLA_DRB1 = request.getParameter("HLA_DRB1");
+		String gene = request.getParameter("gene");
+		
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/index.html");//SOS change directory
 		PatientDAO pdao = new PatientDAO();
 		ArrayList<Patient> reslist = null;
 		
 		try{
-			reslist=pdao.findPatientByGenes(HLA_A,HLA_B,HLA_C,HLA_DPB1,HLA_DQA1,HLA_DQB1,HLA_DRB1);
+			reslist=pdao.findPatientByGenes(gene);
 			
 			request.setAttribute("patients-results", reslist);
 			
