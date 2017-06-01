@@ -10,7 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.DoctorDAO;
 import dao.UserDAO;
+import model.Doctor;
+import model.User;
 //import model.User;
 
 /**
@@ -53,16 +56,24 @@ public class LoginController extends HttpServlet {
 		RequestDispatcher loginsuccess = request.getRequestDispatcher("/index.html");//SOS allagi sto directory
 		
 		UserDAO udao = new UserDAO();
+		DoctorDAO ddao = new DoctorDAO();
 		
-		Boolean flag = false;
+		User user=null;
+		
 		
 		HttpSession session = request.getSession(true);
 		
 		try{
-			flag = udao.confirmUser(username, password);
+			user = udao.confirmUser(username, password);
 			
-			if(flag){
-				session.setAttribute("user", username);
+			if(user!=null){
+				int x = ddao.ifDoctor(username);
+				if(x==0){
+				session.setAttribute("user", user);
+				}else{
+					Doctor doctor = new Doctor(user.getName(),user.getSurname(),user.getEmail(),user.getUsername(),user.getPassword(),x);
+					session.setAttribute("user", doctor);
+				}
 				loginsuccess.forward(request, response);
 			}
 			else{

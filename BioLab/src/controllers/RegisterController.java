@@ -47,8 +47,8 @@ public class RegisterController extends HttpServlet {
 		UserDAO udao = new UserDAO();
 		try{
 			
-		Boolean flag = udao.confirmUser(name, surname, username, email);
-		if(!flag){
+		User us = udao.confirmUser(name, surname, username, email);
+		if(us==null){
 			String decl = request.getParameter("credential");
 			if(decl ==null){
 				User user = new User(name,surname,username,email,password);
@@ -60,7 +60,7 @@ public class RegisterController extends HttpServlet {
 				
 			}else{
 				//
-				if (decl.length()==10){
+				if (decl.length()==11){
 					int credential = Integer.parseInt(decl);
 					Doctor doc = new Doctor(name,surname,username,email,password,credential);
 					DoctorDAO ddao =new DoctorDAO();
