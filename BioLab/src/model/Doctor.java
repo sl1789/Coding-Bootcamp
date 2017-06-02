@@ -26,8 +26,8 @@ public class Doctor extends User {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Doctor(String name, String surname, String email, String username, String password,int credential) {
-		super(name, surname, email, username, password);
+	public Doctor(String name, String surname, String username, String email, String password,int credential) {
+		super(name, surname, username, email, password);
 		this.credential=credential;
 		//this.user_id=user_id;
 	}
