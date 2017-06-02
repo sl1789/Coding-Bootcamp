@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.DoctorDAO;
 import dao.UserDAO;
@@ -42,19 +43,20 @@ public class RegisterController extends HttpServlet {
 		String username = request.getParameter("username");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
+		HttpSession session = request.getSession(true);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/index.html");//SOS change directory
+		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");//SOS change directory
 		UserDAO udao = new UserDAO();
 		try{
 			
 		User us = udao.confirmUser(name, surname, username, email);
 		if(us==null){
 			String decl = request.getParameter("credential");
-			if(decl ==null){
+			if(decl ==""||decl==null){
 				User user = new User(name,surname,username,email,password);
 				udao.saveUser(user);
 				request.setAttribute("message", "Registration completed successfully!");
-
+				session.setAttribute("user", user);
 				rd.forward(request, response);
 				return;
 				
@@ -66,12 +68,13 @@ public class RegisterController extends HttpServlet {
 					DoctorDAO ddao =new DoctorDAO();
 					ddao.saveDoctor(doc);
 					request.setAttribute("message", "Registration completed successfully!");
+					session.setAttribute("user", doc);
 
 					rd.forward(request, response);
 					return;					
 				}else{
 					request.setAttribute("message", "Registration not completed");
-					rd = request.getRequestDispatcher("/register.jsp");//SOS change directory
+					rd = request.getRequestDispatcher("/index.jsp");//SOS change directory
 					// is it correct??
 					rd.forward(request, response);
 					return;

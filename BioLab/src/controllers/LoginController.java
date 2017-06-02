@@ -52,8 +52,8 @@ public class LoginController extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		
-		RequestDispatcher loginfail = request.getRequestDispatcher("/index.html");//SOS allagi sto directory
-		RequestDispatcher loginsuccess = request.getRequestDispatcher("/index.html");//SOS allagi sto directory
+		RequestDispatcher loginfail = request.getRequestDispatcher("/index.jsp");//SOS allagi sto directory
+		RequestDispatcher loginsuccess = request.getRequestDispatcher("/index.jsp");//SOS allagi sto directory
 		
 		UserDAO udao = new UserDAO();
 		DoctorDAO ddao = new DoctorDAO();

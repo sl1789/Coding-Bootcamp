@@ -70,7 +70,7 @@ public class UserDAO {
 		DB db = new DB();
 		Connection con = null;
 		PreparedStatement st = null;
-		String sqlq = "Insert into bioproject.user('name','surname','username','email','password') values(?,?,?,?,?);"; //leipei to onoma tis basis
+		String sqlq = "Insert into bioproject.user(name,surname,username,email,password) values(?,?,?,?,?);"; //leipei to onoma tis basis
 		
 		try{
 			
@@ -102,7 +102,7 @@ public class UserDAO {
 		DB db =new DB();
 		User user = null;
 		PreparedStatement st = null;
-		String sqlq = "SELECT * FROM user WHERE(name=? AND surname = ?) OR username = ? OR email = ?;";
+		String sqlq = "SELECT * FROM bioproject.user WHERE(name=? AND surname = ?) OR username = ? OR email = ?;";
 		ResultSet rs = null;
 		
 		try{

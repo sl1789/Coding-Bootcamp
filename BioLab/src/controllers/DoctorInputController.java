@@ -1,7 +1,7 @@
 package controllers;
 
 import java.io.IOException;
-import java.sql.Date;
+//import java.sql.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -43,7 +43,7 @@ public class DoctorInputController extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-request.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
 		
 		//String doc_name = request.getParameter("doc_name");
 		String date = request.getParameter("date");
@@ -69,7 +69,7 @@ request.setCharacterEncoding("UTF-8");
 		String transType = request.getParameter("type");
 		String hos_id = request.getParameter("hospital_id");
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/saveresult.jsp");//SOS change directory
+		RequestDispatcher rd = request.getRequestDispatcher("/examination.jsp");//SOS change directory
 		
 		ChildDAO cdao = new ChildDAO();
 		MotherDAO mdao = new MotherDAO();
@@ -81,13 +81,13 @@ request.setCharacterEncoding("UTF-8");
 			if(afm==null){
 				Child child = new Child(patient_id,name,surname,HLA_A,HLA_B,HLA_C,HLA_DPB1,HLA_DQA1,HLA_DQB1,HLA_DRB1,dateOfBirth,mother_id);
 				cdao.saveChild(child);
-				rd.forward(request, response);
+				//rd.forward(request, response);
 				//return;
 			}else{
 				int af = Integer.parseInt(afm);
 				Mother mother = new Mother(patient_id,name,surname,HLA_A,HLA_B,HLA_C,HLA_DPB1,HLA_DQA1,HLA_DQB1,HLA_DRB1,af);
 				mdao.saveMother(mother);
-				rd.forward(request, response);
+				//rd.forward(request, response);
 				//return;
 			}
 			Doctor doc = (Doctor)session.getAttribute("user");
@@ -96,6 +96,8 @@ request.setCharacterEncoding("UTF-8");
 			int hospital_id = Integer.parseInt(hos_id);
 			Transplant tran = new Transplant(type,HLA_A,HLA_B,HLA_C,HLA_DPB1,HLA_DQA1,HLA_DQB1,HLA_DRB1,hospital_id);
 			tdao.saveTransplant(tran);
+			request.setAttribute("message", "Registration completed successfully!");
+			rd.forward(request, response);
 			return;
 		}catch (Exception e) {
 			
