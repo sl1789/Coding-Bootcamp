@@ -5,9 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DB {
-	private final String dbname = "bootcamp";
-	private final String dbusername = "efth";
-	private final String dbpassword = "1988ega";
+	private final String dbname = "bioproject";
+	private final String dbusername = "admin";
+	private final String dbpassword = "admin";
 	private Connection con = null;
 
 	/**

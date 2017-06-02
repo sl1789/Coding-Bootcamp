@@ -71,7 +71,7 @@ public class LoginController extends HttpServlet {
 				if(x==0){
 				session.setAttribute("user", user);
 				}else{
-					Doctor doctor = new Doctor(user.getName(),user.getSurname(),user.getEmail(),user.getUsername(),user.getPassword(),x);
+					Doctor doctor = new Doctor(user.getName(),user.getSurname(),user.getUsername(),user.getEmail(),user.getPassword(),x);
 					session.setAttribute("user", doctor);
 				}
 				loginsuccess.forward(request, response);

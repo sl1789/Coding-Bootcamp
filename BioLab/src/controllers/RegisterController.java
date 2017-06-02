@@ -60,7 +60,7 @@ public class RegisterController extends HttpServlet {
 				
 			}else{
 				//
-				if (decl.length()==11){
+				if (decl.length()==5){
 					int credential = Integer.parseInt(decl);
 					Doctor doc = new Doctor(name,surname,username,email,password,credential);
 					DoctorDAO ddao =new DoctorDAO();
