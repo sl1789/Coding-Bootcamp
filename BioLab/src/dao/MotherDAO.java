@@ -22,13 +22,14 @@ public class MotherDAO extends PatientDAO{
 		Connection con = null;
 		PreparedStatement st = null;
 		
-		String sqlq = "INSERT INTO bioproject.mother(afm) VALUES (?);";
+		String sqlq = "INSERT INTO bioproject.mother VALUES (?,?);";
 		
 		try{
 			db.open();
 			con=db.getConnection();
 			st=con.prepareStatement(sqlq);
-			st.setInt(1, mother.getAfm());
+			st.setString(1, mother.getPatientId());
+			st.setInt(2, mother.getAfm());
 			st.executeUpdate();
 			st.close();
 			db.close();

@@ -23,13 +23,15 @@ public class ChildDAO extends PatientDAO{
 		Connection con = null;
 		PreparedStatement st = null;
 		
-		String sqlq = "INSERT INTO bioproject.child(dateOfbirth) VALUES (?);";
+		String sqlq = "INSERT INTO bioproject.child VALUES (?,?,?);";
 		
 		try{
 			db.open();
 			con=db.getConnection();
 			st=con.prepareStatement(sqlq);
-			st.setString(1, child.getDateOfBirth());
+			st.setString(1, child.getPatientId());
+			st.setString(2, child.getDateOfBirth());
+			st.setString(3, child.getMother_id());
 			st.executeUpdate();
 			st.close();
 			db.close();

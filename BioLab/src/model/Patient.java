@@ -80,13 +80,13 @@ public class Patient {
 		this.patientId = patientId;
 		this.name = name;
 		this.surname = surname;
-		HLA_A = hLA_A;
-		HLA_B = hLA_B;
-		HLA_C = hLA_C;
-		HLA_DPB1 = hLA_DPB1;
-		HLA_DQA1 = hLA_DQA1;
-		HLA_DQB1 = hLA_DQB1;
-		HLA_DRB1 = hLA_DRB1;
+		this.HLA_A = hLA_A;
+		this.HLA_B = hLA_B;
+		this.HLA_C = hLA_C;
+		this.HLA_DPB1 = hLA_DPB1;
+		this.HLA_DQA1 = hLA_DQA1;
+		this.HLA_DQB1 = hLA_DQB1;
+		this.HLA_DRB1 = hLA_DRB1;
 	}
 	@Override
 	public String toString() {

@@ -32,7 +32,7 @@ public class PatientDAO {
 			ArrayList<Patient> patientList = new ArrayList<Patient>();
 			
 			while(rs.next()){
-				patientList.add(new Patient(rs.getString("patientId"),rs.getString("name"),rs.getString("surname"),rs.getString("HLA_A"),rs.getString("HLA_B"),rs.getString("HLA_C"),rs.getString("HLA_DPB1"),rs.getString("HLA_DQA1"),rs.getString("HLA_DQB1"),rs.getString("HLA_DRB1")));
+				patientList.add(new Patient(rs.getString("patient_id"),rs.getString("name"),rs.getString("surname"),rs.getString("HLA_A"),rs.getString("HLA_B"),rs.getString("HLA_C"),rs.getString("HLA_DPB1"),rs.getString("HLA_DQA1"),rs.getString("HLA_DQB1"),rs.getString("HLA_DRB1")));
 			}
 			
 			rs.close();
@@ -58,7 +58,7 @@ public class PatientDAO {
 		DB db = new DB();
 		Connection con = null;
 		PreparedStatement st = null;
-		String sqlq = "INSERT INTO bioproject.patient(patientId,name,surname,HLA_A,HLA_B,HLA_C,HLA_DPB1,HLA_DQA1,HLA_DQB1,HLA_DRB1) VALUES (?,?,?,?,?,?,?,?,?,?);";
+		String sqlq = "INSERT INTO bioproject.patient VALUES (?,?,?,?,?,?,?,?,?,?);";
 		
 		try{
 			db.open();
@@ -94,7 +94,7 @@ public class PatientDAO {
 		Connection con = null;
 		ArrayList<Patient> results = new ArrayList<Patient>();
 		DB db = new DB();
-		String sqlquery = "SELECT * FROM bioproject.patient WHERE name LIKE ? OR surname LIKE ? OR patientId LIKE ?;";
+		String sqlquery = "SELECT * FROM bioproject.patient WHERE name LIKE ? OR surname LIKE ? OR patient_id LIKE ?;";
 		
 		try{
 			db.open(); //open connection
@@ -108,7 +108,7 @@ public class PatientDAO {
 			
 			//insert while
 			while(rs.next()){
-				results.add(new Patient(rs.getString("patientId"),rs.getString("name"),rs.getString("surname"),rs.getString("HLA_A"),rs.getString("HLA_B"),rs.getString("HLA_C"),rs.getString("HLA_DPB1"),rs.getString("HLA_DQA1"),rs.getString("HLA_DQB1"),rs.getString("HLA_DRB1")));
+				results.add(new Patient(rs.getString("patient_id"),rs.getString("name"),rs.getString("surname"),rs.getString("HLA_A"),rs.getString("HLA_B"),rs.getString("HLA_C"),rs.getString("HLA_DPB1"),rs.getString("HLA_DQA1"),rs.getString("HLA_DQB1"),rs.getString("HLA_DRB1")));
 			}
 			
 			

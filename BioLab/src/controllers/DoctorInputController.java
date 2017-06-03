@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 //import java.sql.Date;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.ChildDAO;
-import dao.ExaminationDAO;
+import dao.ExamDAO;
 import dao.MotherDAO;
 import dao.TransplantDAO;
 import model.Child;
@@ -73,12 +74,13 @@ public class DoctorInputController extends HttpServlet {
 		
 		ChildDAO cdao = new ChildDAO();
 		MotherDAO mdao = new MotherDAO();
-		ExaminationDAO edao = new ExaminationDAO();
+		ExamDAO edao = new ExamDAO();
 		TransplantDAO tdao = new TransplantDAO();
 		HttpSession session = request.getSession(true);
+		PrintWriter out = new PrintWriter(response.getWriter());
 		
 		try{
-			if(afm==null){
+			if(afm==null||afm==""){
 				Child child = new Child(patient_id,name,surname,HLA_A,HLA_B,HLA_C,HLA_DPB1,HLA_DQA1,HLA_DQB1,HLA_DRB1,dateOfBirth,mother_id);
 				cdao.saveChild(child);
 				//rd.forward(request, response);
@@ -87,6 +89,7 @@ public class DoctorInputController extends HttpServlet {
 				int af = Integer.parseInt(afm);
 				Mother mother = new Mother(patient_id,name,surname,HLA_A,HLA_B,HLA_C,HLA_DPB1,HLA_DQA1,HLA_DQB1,HLA_DRB1,af);
 				mdao.saveMother(mother);
+				request.setAttribute("message", "Mother in your face successfully!");
 				//rd.forward(request, response);
 				//return;
 			}
