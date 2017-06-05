@@ -86,7 +86,7 @@ public class DoctorDAO extends UserDAO{
 			db.close();
 			
 		}catch(Exception e){
-			throw new Exception("An error occured while getting students from database: " + e.getMessage());
+			throw new Exception("An error occured while getting doctors from database: " + e.getMessage());
 		}finally{
 			try {
 				db.close();
@@ -129,5 +129,32 @@ public class DoctorDAO extends UserDAO{
 			} 
 		}
 		
+	}
+	
+	public void saveBelongs(String username, int id) throws Exception{
+		DB db = new DB();
+		Connection con = null;
+		PreparedStatement st = null;
+		String sqlq = "INSERT INTO bioproject.belongs VALUES (?,?);";
+try{
+			
+			db.open();
+			con=db.getConnection();
+			st=con.prepareStatement(sqlq);
+			st.setInt(2, id);
+			st.setString(1, username);
+			st.executeUpdate();
+			st.close();
+			db.close();
+			
+		}catch(Exception e){
+			throw new Exception("An error occured while getting Belongs from database: " + e.getMessage());
+		}finally{
+			try {
+				db.close();
+			} catch (Exception e) {
+				
+			} 
+		}
 	}
 }

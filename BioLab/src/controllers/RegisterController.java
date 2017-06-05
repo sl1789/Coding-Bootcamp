@@ -43,6 +43,7 @@ public class RegisterController extends HttpServlet {
 		String username = request.getParameter("username");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
+		String hospital_id = request.getParameter("hospital_id");
 		HttpSession session = request.getSession(true);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");//SOS change directory
@@ -64,9 +65,11 @@ public class RegisterController extends HttpServlet {
 				//
 				if (decl.length()==5){
 					int credential = Integer.parseInt(decl);
+					int hosp = Integer.parseInt(hospital_id);
 					Doctor doc = new Doctor(name,surname,username,email,password,credential);
 					DoctorDAO ddao =new DoctorDAO();
 					ddao.saveDoctor(doc);
+					ddao.saveBelongs(doc.getUsername(),hosp);
 					request.setAttribute("message", "Registration completed successfully!");
 					session.setAttribute("user", doc);
 

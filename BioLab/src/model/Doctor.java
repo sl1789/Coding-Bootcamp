@@ -3,6 +3,7 @@ package model;
 public class Doctor extends User {
 	
 	private int credential;
+	
 	//private int user_id;
 
 //	public int getUser_id() {
