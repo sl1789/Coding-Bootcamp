@@ -105,9 +105,41 @@ public class ExamDAO {
 			
 			rs.close();
 			stmt1.close();
-			db.close();
+			//db.close();
 
 			return results;
+		}catch(Exception e) {
+
+			throw new Exception("An error occured while searching for examination in the database: " + e.getMessage());
+			
+		} finally {
+			
+			try {
+				db.close();
+			} catch (Exception e) {
+				
+			}
+		}
+	}
+	
+	public Examination findExaminationByPatientID(String keyword) throws Exception{
+		Connection con = null;
+		DB db = new DB();
+		String sqlq = "SELECT * FROM bioproject.examination WHERE patient_id = ?;";
+		Examination exam = null;
+		try{
+			db.open(); //open connection
+			con = db.getConnection(); //get Connection Object
+			PreparedStatement st = con.prepareStatement(sqlq);
+			st.setString(1, keyword);
+			ResultSet rs =st.executeQuery();
+			if(rs.next()){
+				exam = new Examination(rs.getString("fk_username"),rs.getString("date"),rs.getString("type"),rs.getString("notes"),rs.getString("patient_id"));
+			}
+			rs.close();
+			st.close();
+			//db.close();
+			return exam;
 		}catch(Exception e) {
 
 			throw new Exception("An error occured while searching for examination in the database: " + e.getMessage());
