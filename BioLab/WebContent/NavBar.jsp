@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="dao.DoctorDAO"%>
 <%@ page import="model.User"%>
 <%@ page import="model.Doctor"%>
@@ -16,15 +15,15 @@
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="index.html">BioLab</a>
+					<a class="navbar-brand" href="index.jsp">BioLab</a>
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
-						<li><a href="index.jsp"><img src="images/home.png"
-								alt="Home"></a></li>
-						<li><a href="about.html">About</a></li>
-						<li class="active"><a href="ourproject.html">Our Project</a></li>
-						<li><a href="contact.html">Contact</a></li>
+					<li class="<%= (request.getRequestURI().replace(request.getContextPath() + "/","").equals("index.jsp") ? "active":"") %>"><a
+					href="index.jsp"><img src="images/home.png" alt="Home"></a></li>						
+						<li class="<%= (request.getRequestURI().replace(request.getContextPath() + "/","").equals("about.jsp") ? "active":"") %>"><a href="about.jsp">About</a></li>
+						<li class="<%= (request.getRequestURI().replace(request.getContextPath() + "/","").equals("ourproject.jsp") ? "active":"") %>"><a href="ourproject.jsp">Our Project</a></li>
+						<li class="<%= (request.getRequestURI().replace(request.getContextPath() + "/","").equals("contact.jsp") ? "active":"") %>"><a href="contact.jsp">Contact</a></li>
 						<%
 							if (session.getAttribute("user") != null) {
 						%>
@@ -33,16 +32,16 @@
 							aria-haspopup="true" aria-expanded="false">CBB_DB<span
 								class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="#">Action</a></li>
-								<li><a href="#">Another action</a></li>
+								<li><a href="#">Views</a></li>
+								<li><a href="search.jsp">Search</a></li>
 								<%
 									User user = (User) session.getAttribute("user");
 								%>
 								<%
 									if (user instanceof Doctor) {
-								%><!-- Maybe we need to change that to int x = ddao.ifDoctor(username) -->
-								<li><a href="#">3rd Action</a></li>
-								<li><a href="#">4th action</a></li>
+								%>
+								<li><a href="examination.jsp">Submit & Search Examination</a></li>
+								<li><a href="update_note.jsp">Update Examination</a></li>
 								<%
 									}
 								%>
@@ -64,9 +63,9 @@
 							} else {
 								User user = (User) session.getAttribute("user");
 						%>
-						<li class="text-right"><%=user.getUsername()%></li>
-						<li id="logout"><a href="logout.jsp" data-toggle="modal"
-							>Log out</a></li>
+						
+						<li class="user"><%=user.getUsername()%></li>
+						<li id="logout"><a href="logout.jsp">Log out</a></li>
 						<%
 							}
 						%>
@@ -89,7 +88,7 @@
 					<h1>Login to Your Account</h1>
 					<br>
 					<form action="login">
-						<input type="text" name="username" placeholder="Username or Email" required> <input
+						<input type="text" name="username" placeholder="Username" required> <input
 						type="password" name="password" placeholder="Password" required> <input
 						type="submit" name="login" class="login loginmodal-submit"
 						value="Login">
@@ -113,17 +112,31 @@
 					</div>
 					<h1>Create Account</h1>
 					<br>
-					<form action="register" method="post" name="index">
+					<form action="RegisterController" method="get" name="index">
 						<div>
 							<label><input type="checkbox" name="colorCheckbox"
 								value="red"> Are you a doctor?</label>
 							</div>
-							<label class="red box">Doctor's Credential</label> <input class="red box"
-							type="text" name="credential" placeholder="Credential" required>
-							<label for="name">Your Name</label> <input type="text" name="name" placeholder="Your Name" required> <label
-							for="surname">Your Surname</label> <input type="text"
-							name="surname" placeholder="Your Surname" required> <label
-							for="email">Your Email</label> <input type="email" name="email"
+							<label class="red box">Doctor's Credential</label>
+							<input class="red box" type="text" name="credential" placeholder="Credential">
+							
+							<div class="red box">
+							<label for="sel1">Select your Hospital</label>
+							<select class="form-control" name="hospital_id" id="sel1">
+							<option value="" selected disabled>Hospital</option>
+							<option value = "1">Agios Savvas</option>
+							<option value = "2">Iaso</option>
+							<option value = "3">Lito</option>
+							<option value = "4">Mitera</option>
+							<option value = "5">Rea</option>
+							</select>
+							</div>
+							<br>
+							<label for="name">Your Name</label>
+							<input type="text" name="name" placeholder="Your Name" required> 
+							<label for="surname">Your Surname</label> 
+							<input type="text" name="surname" placeholder="Your Surname" required> 
+							<label for="email">Your Email</label> <input type="email" name="email"
 							placeholder="Your Email" required> <label for="username">Username</label>
 							<input type="text" name="username" placeholder="Username" required>
 							<label for="password">Password</label> <input type="password"

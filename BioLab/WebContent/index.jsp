@@ -10,17 +10,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
-<link
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"
-	rel="stylesheet">
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/4.10.1/bootstrap-social.css"
-	rel="stylesheet">
 <title>BioLab</title>
 </head>
 
 <body>
-<% session = request.getSession(); %>
+
 	<!-- NAVBAR-->
 	<jsp:include page="NavBar.jsp"></jsp:include>
 	<!-- NAVBAR-->
@@ -116,7 +110,7 @@
 					clinical decision making, enhanced efficiency of care provision.</p>
 			</div>
 		</div>
-		<div class="col-md-6 col-sm-12">
+		<div class="col-md-6 col-sm-6">
 			<div class="contain">
 				<img src="images/icon-2.png" alt="Clinical usage">
 				<h2 class="text-center">Clinical usage</h2>
@@ -131,7 +125,7 @@
 
 			</div>
 		</div>
-		<div class="col-md-6 col-sm-12">
+		<div class="col-md-6 col-sm-6">
 			<div class="contain">
 				<img src="images/icon-1.png" alt="Research">
 				<h2 class="text-center">Research</h2>
@@ -140,7 +134,7 @@
 					gap of data transmission between hospitals and research labs. This
 					allows researchers to access crucial clinical information in order
 					to perform population studies.</p>
-				<br> <br> <br>
+				<br> <br> <br> <br>
 			</div>
 		</div>
 	</div>
